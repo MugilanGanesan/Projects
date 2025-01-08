@@ -1,0 +1,145 @@
+PRODUCER
+
+Student Controller
+
+1.Get All Students:
+(GET) http://localhost:8081/student/allstudents
+
+2.Get Student by Id:
+(GET) http://localhost:8081/student/studentid/2
+
+3.Get Student by Name:
+(GET) http://localhost:8081/student/studentname/Nilan
+
+4.Get Student by Mobile:
+(GET) http://localhost:8081/student/mobile/4954989636
+
+5.Get Student by Course Id:
+(GET) http://localhost:8081/student/courseid/5
+
+6.Add Student:
+(POST) http://localhost:8081/student/addstudent
+
+input:
+{
+  "studentName": "Srinath",
+  "studentEmail": "sri@gamil",
+  "studentMobile": "4054989636",
+  "course": 
+    {
+        "courseId": 1
+    }
+}
+
+7.Update Student by Id:
+(PUT) http://localhost:8081/student/updatestudent/15
+
+JSON input:
+{
+  "studentName": "Pathi",
+  "studentEmail": "parthi@gamil",
+  "studentMobile": "4054989636",
+  "course": 
+    {
+        "courseId": 6
+    }
+}
+
+
+8.Delete Student:
+(DELETE) http://localhost:8081/student/delete/15
+
+
+//-----------------------------------------------------------------------------------------------------------------------
+
+
+COURSE
+
+1.Get All Courses with Students:
+(GET) http://localhost:8081/course/allcourse
+
+2.Get Course by Id with Students:
+(GET) http://localhost:8081/course/courseid/3
+
+3.Get Course by Name with Students:
+(GET) http://localhost:8081/course/coursename/Java
+
+4.Add Course:
+(POST) http://localhost:8081/course/addcourse
+
+JSON input:
+{
+    "courseName": "MangoDB",
+    "courseDuration": "6 months",
+    "courseFees": 35000,
+    "batchName": "Evng"
+}
+
+5.Update Course by Id:
+(PUT) http://localhost:8081/course/updatecourse/8
+
+JSON input:
+{
+    "courseName": "MangaDB",
+    "courseDuration": "6 months",
+    "courseFees": 35000,
+    "batchName": "Evng"
+}
+
+6.Delete Course by Id:
+(DELETE) http://localhost:8081/course/deletecourse/8
+
+
+
+//------------------------------------------------------------------------------------------------------------
+
+
+CONSUMER STUDENTS
+
+
+1.Get All Students with Id:
+(GET) http://localhost:8080/salemstudents/allstudentswithid
+
+2. Get All Courses from Producer Database:
+(GET) http://localhost:8080/salemstudents/allcourse
+
+3.Get All Students:
+(GET) http://localhost:8080/salemstudents/allstudents
+
+4.Get Students with Id:
+(GET) http://localhost:8080/salemstudents/studentid/10
+
+5.Get Student by Mobile:
+(GET) http://localhost:8081/student/mobile/4954989636
+
+6.Get Student by Course Id:
+(GET) http://localhost:8080/salemstudents/course/2
+
+7.Add Student:
+(POST) http://localhost:8080/student/addstudent
+
+input:
+{
+        "studentName": "KumarVJ",
+        "studentEmail": "kumarvj@gamil",
+        "studentMobile": "4934989636",
+        "courseId": 5
+ }
+
+8.Update Student by Id:
+(PUT) http://localhost:8080/salemstudents/updatestudent/11
+
+JSON input:
+{
+  "studentName": "Sukumar",
+  "studentEmail": "sukumar@gamil",
+  "studentMobile": "4954989636",
+  "course": 
+    {
+        "courseId": 6
+    }
+}
+
+
+9.Delete Student:
+(DELETE) http://localhost:8080/salemstudents/delete/10
