@@ -1,6 +1,5 @@
 package com.studentAndCourse.StudentAndCourse.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -16,8 +15,6 @@ import com.studentAndCourse.StudentAndCourse.exception.StudentNotFoundException;
 import com.studentAndCourse.StudentAndCourse.mapper.StudentMapper;
 import com.studentAndCourse.StudentAndCourse.repository.CourseRepository;
 import com.studentAndCourse.StudentAndCourse.repository.StudentRepository;
-
-import jakarta.transaction.Transactional;
 
 @Service
 public class StudentService {
@@ -44,7 +41,6 @@ public class StudentService {
 	        return studentMapper.toStudentDTO(student);
 	    }
 	    
-	    // Utility method to convert Student entity to StudentDTO
 	    public StudentDTO convertToDTO(Student student) {
 	        StudentDTO dto = new StudentDTO();
 	        dto.setStudentId(student.getStudentId());
@@ -52,7 +48,6 @@ public class StudentService {
 	        dto.setStudentEmail(student.getStudentEmail());
 	        dto.setStudentMobile(student.getStudentMobile());
 
-	        // Convert Course Entities to CourseDTOs
 	        Set<CourseDTO> courseDTOs = student.getCourses().stream().map(course -> {
 	            CourseDTO courseDTO = new CourseDTO();
 	            courseDTO.setCourseId(course.getCourseId());
@@ -83,11 +78,10 @@ public class StudentService {
 	    public StudentDTO addStudent(StudentDTO studentDTO) {
 	        Student student = studentMapper.toStudentEntity(studentDTO);
 
-	        // ✅ If courses exist in request, fetch them from DB
 	        if (studentDTO.getCourses() != null && !studentDTO.getCourses().isEmpty()) {
 	            Set<Course> courses = studentDTO.getCourses().stream()
 	                .map(courseDTO -> courseRepo.findById(courseDTO.getCourseId()).orElse(null))
-	                .filter(course -> course != null) // Avoid null values if course not found
+	                .filter(course -> course != null) 
 	                .collect(Collectors.toSet());
 
 	            student.setCourses(courses);

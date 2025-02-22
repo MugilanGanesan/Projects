@@ -14,7 +14,6 @@ import com.studentAndCourse.StudentAndCourse.entity.Course;
 import com.studentAndCourse.StudentAndCourse.entity.Student;
 import com.studentAndCourse.StudentAndCourse.exception.CourseNotFoundException;
 import com.studentAndCourse.StudentAndCourse.mapper.CourseMapper;
-import com.studentAndCourse.StudentAndCourse.mapper.StudentMapper;
 import com.studentAndCourse.StudentAndCourse.repository.CourseRepository;
 import com.studentAndCourse.StudentAndCourse.repository.StudentRepository;
 
@@ -30,12 +29,7 @@ public class CourseService {
     @Autowired
     private CourseMapper courseMapper;
 
-    @Autowired
-    private StudentMapper studentMapper;
-
-    /**
-     * Get all courses
-     */
+ 
     public List<CourseDTO> getAllCourses() {
         List<Course> courses = courseRepo.findAll();
         return courseMapper.toCourseDTOList(courses);
@@ -47,7 +41,7 @@ public class CourseService {
 
         CourseDTO courseDTO = courseMapper.toCourseDTO(course);
 
-        // ✅ Ensure students list is not null
+    
         if (courseDTO.getStudents() == null) {
             courseDTO.setStudents(new ArrayList<>());  // Initialize empty list to prevent null error
         } else {
@@ -56,13 +50,6 @@ public class CourseService {
 
         return courseDTO;
     }
-
-
-//    public CourseDTO getCourseById(Integer courseId) {
-//        Course course = courseRepo.findById(courseId)
-//                .orElseThrow(() -> new CourseNotFoundException("Course not found with ID: " + courseId));
-//        return courseMapper.toCourseDTO(course);
-//    }
 
     public CourseDTO getByCourseName(String name) {
         Course course = courseRepo.findByCourseName(name)
@@ -70,9 +57,9 @@ public class CourseService {
 
         CourseDTO courseDTO = courseMapper.toCourseDTO(course);
 
-        // ✅ Ensure students list is not null
+       
         if (courseDTO.getStudents() == null) {
-            courseDTO.setStudents(new ArrayList<>());  // Initialize empty list to prevent null error
+            courseDTO.setStudents(new ArrayList<>()); 
         } else {
             courseDTO.getStudents().forEach(studentDTO -> studentDTO.setCourses(null));
         }
@@ -80,20 +67,13 @@ public class CourseService {
         return courseDTO;
     }
 
-//    public CourseDTO getCourseByName(String name) {
-//        Course course = courseRepo.findByCourseName(name)
-//                .orElseThrow(() -> new CourseNotFoundException("Course not found with name: " + name));
-//        return courseMapper.toCourseDTO(course);
-//    }
-
     public CourseDTO addCourse(CourseDTO courseDTO) {
         Course course = courseMapper.toCourseEntity(courseDTO);
 
-        // ✅ If students exist in request, fetch them from DB
         if (courseDTO.getStudents() != null && !courseDTO.getStudents().isEmpty()) {
             Set<Student> students = courseDTO.getStudents().stream()
                 .map(studentDTO -> studentRepo.findById(studentDTO.getStudentId()).orElse(null))
-                .filter(student -> student != null) // Avoid null values if student not found
+                .filter(student -> student != null) 
                 .collect(Collectors.toSet());
 
             course.setStudents(students);
@@ -103,9 +83,6 @@ public class CourseService {
         return courseMapper.toCourseDTO(course);
     }
 
-    /**
-     * Update a course
-     */
     public CourseDTO updateCourse(Integer id, CourseDTO courseDTO) {
         Course existingCourse = courseRepo.findById(id)
                 .orElseThrow(() -> new CourseNotFoundException("Course not found with ID: " + id));
@@ -114,7 +91,6 @@ public class CourseService {
         existingCourse.setCourseDuration(courseDTO.getCourseDuration());
         existingCourse.setCourseFees(courseDTO.getCourseFees());
 
-        // ✅ If students exist in request, fetch them from DB
         if (courseDTO.getStudents() != null && !courseDTO.getStudents().isEmpty()) {
             Set<Student> students = courseDTO.getStudents().stream()
                 .map(studentDTO -> studentRepo.findById(studentDTO.getStudentId()).orElse(null))
@@ -128,16 +104,10 @@ public class CourseService {
         return courseMapper.toCourseDTO(updatedCourse);
     }
 
-    /**
-     * Delete a course by ID
-     */
     public void deleteCourse(Integer id) {
         courseRepo.deleteById(id);
     }
 
-    /**
-     * Convert Course entity to CourseDTO
-     */
     public CourseDTO convertToDTO(Course course) {
         CourseDTO dto = new CourseDTO();
         dto.setCourseId(course.getCourseId());
@@ -145,7 +115,6 @@ public class CourseService {
         dto.setCourseDuration(course.getCourseDuration());
         dto.setCourseFees(course.getCourseFees());
 
-        // ✅ Convert Student Entities to StudentDTOs
         List<StudentDTO> studentDTOs = new ArrayList<>(course.getStudents().stream().map(student -> {
             StudentDTO studentDTO = new StudentDTO();
             studentDTO.setStudentId(student.getStudentId());
@@ -153,9 +122,9 @@ public class CourseService {
             studentDTO.setStudentEmail(student.getStudentEmail());
             studentDTO.setStudentMobile(student.getStudentMobile());
             return studentDTO;
-        }).toList()); // ✅ Convert Stream to List instead of Set
+        }).toList()); 
 
-        dto.setStudents(studentDTOs); // ✅ Assign directly without casting
+        dto.setStudents(studentDTOs);
 
         return dto;
     }

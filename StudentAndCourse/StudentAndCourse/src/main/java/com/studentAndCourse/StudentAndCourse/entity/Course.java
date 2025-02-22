@@ -1,6 +1,5 @@
 package com.studentAndCourse.StudentAndCourse.entity;
 
-import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -10,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+
 @Entity
 public class Course {
 	
@@ -22,7 +22,7 @@ public class Course {
     private Integer courseFees;
     
     @ManyToMany(mappedBy = "courses")
-    @JsonBackReference  // ✅ Prevents infinite recursion
+    @JsonBackReference  // Prevents infinite recursion
     private Set<Student> students;
     
 	public Course() {

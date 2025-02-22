@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.studentAndCourse.StudentAndCourse.dto.StudentDTO;
-import com.studentAndCourse.StudentAndCourse.entity.Student;
-import com.studentAndCourse.StudentAndCourse.mapper.StudentMapper;
 import com.studentAndCourse.StudentAndCourse.service.StudentService;
 
 @RestController
@@ -27,21 +24,12 @@ public class StudentController {
 	 @Autowired
 	    private StudentService studentService;
 	 
-	 @Autowired
-	 private StudentMapper studentMapper;
-
 	    @GetMapping("/allstudents")
 	    public ResponseEntity<List<StudentDTO>> getAllStudents() {
 	        List<StudentDTO> students = studentService.getAllStudents();
 	        return new ResponseEntity<>(students, HttpStatus.OK);
 	    }
 
-//	    @GetMapping("/studentid/{studentid}")
-//	    public ResponseEntity<StudentDTO> getStudentById(@PathVariable Integer studentid) {
-//	        StudentDTO student = studentService.getStudentById(studentid);
-//	        return new ResponseEntity<>(student, HttpStatus.OK);
-//	    }
-	    
 	    @GetMapping("/studentid/{studentid}")
 	    public ResponseEntity<StudentDTO> getStudentById(@PathVariable Integer id) {
 	    	StudentDTO student=studentService.getStudentById(id);

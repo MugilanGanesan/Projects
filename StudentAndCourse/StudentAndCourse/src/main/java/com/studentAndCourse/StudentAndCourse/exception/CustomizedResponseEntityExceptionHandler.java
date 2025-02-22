@@ -2,7 +2,6 @@ package com.studentAndCourse.StudentAndCourse.exception;
 
 import java.net.http.HttpHeaders;
 import java.util.Date;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

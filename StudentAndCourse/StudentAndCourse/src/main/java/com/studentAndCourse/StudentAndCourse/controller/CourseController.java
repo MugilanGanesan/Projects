@@ -43,12 +43,6 @@ public class CourseController {
 	        return new ResponseEntity<>(courseDTO, HttpStatus.OK);
 	    }
 
-//	    @GetMapping("/allcourses")
-//	    public ResponseEntity<List<CourseDTO>> getAllCourses() {
-//	        List<CourseDTO> courses = courseService.getAllCourses();
-//	        return new ResponseEntity<>(courses, HttpStatus.OK);
-//	    }
-
 	    @GetMapping("/allcourses")
 	    public ResponseEntity<List<CourseDTO>> getAllCourses() {
 	        List<Course> courses = courseRepo.findAll();

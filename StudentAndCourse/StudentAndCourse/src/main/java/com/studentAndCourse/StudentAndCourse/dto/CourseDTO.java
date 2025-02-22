@@ -1,9 +1,6 @@
 package com.studentAndCourse.StudentAndCourse.dto;
 
 import java.util.List;
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class CourseDTO {
 	
@@ -12,8 +9,7 @@ public class CourseDTO {
     private String courseDuration;
     private Integer courseFees;
     
-    // ✅ Ensure students are included in CourseDTO response
-    private List<StudentDTO> students;
+     private List<StudentDTO> students;
 	    
 		public CourseDTO() {
 			super();
